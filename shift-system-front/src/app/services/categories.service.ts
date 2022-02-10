@@ -7,16 +7,16 @@ import { Category } from '../models/category'
 @Injectable({
   providedIn: 'root'
 })
-export class CategoryService {
+export class CategoriesService {
 
-  apiUrl: string = 'localhost:8080/api/categories';
+  apiUrl: string = 'http://localhost:8080/api/categories';
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
   constructor(private httpClient: HttpClient) { }
 
-  getAllCategories(): Observable<any>{
+  getAllCategories(): Observable<Array<Category>>{
     console.log(this.headers);
-    return this.httpClient.get<any>(this.apiUrl, { headers: this.headers });
+    return this.httpClient.get<Array<Category>>(this.apiUrl, { headers: this.headers });
   }
 
   getCategoryById(id: String): Observable<Category>{
