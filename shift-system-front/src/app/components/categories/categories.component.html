@@ -1,17 +1,127 @@
-Hola mundo
-<p-table [value]="this.categories">
-    <ng-template pTemplate="header">
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Weight</th>
-        </tr>
-    </ng-template>
-    <ng-template pTemplate="body" let-category>
-        <tr>
-            <td>{{category.id}}</td>
-            <td>{{category.name}}</td>
-            <td>{{category.weight}}</td>
-        </tr>
-    </ng-template>
-</p-table>
+<div clas="container">
+
+    <div class="title">
+        <span> Manage categories </span>
+    </div>
+
+    <div>
+        <p-card [style]="{'width': '20rem', 'margin-bottom': '2em'}" *ngIf="this.displayForm == true">
+
+            <ng-template pTemplate="header">        
+                <br>        
+                <div class="buttun-cancel">
+                    <span class="button">
+                        <button pButton pRipple type="button" class="p-button-outlined p-button-danger" icon="pi pi-times" (click)="onCancelForm()"></button>
+                    </span>
+                </div>
+                <span class="subtitle" *ngIf="this.editing == false">
+                    Create category
+                </span>
+                <span class="subtitle" *ngIf="this.editing == true">
+                    Edit Category
+                </span>     
+            </ng-template>
+
+            <form [formGroup]="this.formGroup" (ngSubmit)="onSubmit()">
+
+                <div class="input-field">
+                    <span class="p-float-label">
+                        <input type="text" id="name" pInputText formControlName="name" autocomplete="off"
+                            pTooltip="Category name" tooltipPosition="bottom"> 
+                        <label for="inputtext">Name</label>
+                    </span>
+                    <span *ngIf="this.formGroup.controls['name'].invalid && (this.formGroup.controls['name'].dirty || this.formGroup.controls['name'].touched)">
+                        <div class="static-message" *ngIf="this.formGroup.get('name')?.hasError('required')">
+                            <p-message severity="warn" text="Enter category name"></p-message>
+                        </div>
+                        <div class="static-message" *ngIf="this.formGroup.get('name')?.hasError('minlength')">
+                            <p-message class="static-message" severity="error" text="The name must be min 3 characters"></p-message>
+                        </div>
+                    </span>
+                </div>
+                
+                <div class="input-field">
+                    <span class="p-float-label">
+                        <input type="number" id="weight" pInputText formControlName="weight" autocomplete="off"
+                            pTooltip="Weight of category priority" tooltipPosition="bottom"> 
+                        <label for="inputtext">weight</label>
+                    </span>
+                    <span *ngIf="this.formGroup.controls['weight'].invalid && (this.formGroup.controls['weight'].dirty || this.formGroup.controls['weight'].touched)">
+                        <div class="static-message" *ngIf="this.formGroup.get('weight')?.hasError('required')">
+                            <p-message severity="warn" text="Enter weight of priority"></p-message>
+                        </div>
+                        <div class="static-message" *ngIf="this.formGroup.get('weight')?.hasError('min')">
+                            <p-message severity="error" text="The width must be min 1"></p-message>
+                        </div>
+                    </span>
+                </div>
+
+                <div class="static-message" *ngIf="this.msgs.length > 0">
+                    <p-messages [(value)]="this.msgs" [enableService]="false"></p-messages>
+                </div>        
+
+                <div class="buttons">
+                    <span class="button">
+                        <button pButton pRipple type="button" class="p-button-outlined" label="Save" (click)="this.onSubmit()"></button>
+                    </span>
+                </div>
+            
+            </form>
+
+        </p-card>
+    </div>
+
+    <div>
+        <div class="button">
+            <button pButton pRipple type="button" class="p-button-outlined" label="New Category" icon="pi pi-plus" (click)="this.displayForm = true" *ngIf="this.displayForm == false"></button>
+        </div>
+
+        <p-table [value]="this.categories" dataKey="id" styleClass="p-datatable-customers" [rowHover]="true"
+        [rows]="5" [showCurrentPageReport]="true" [rowsPerPageOptions]="[5,10,25,50]" responsiveLayout="scroll"
+        [paginator]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" >
+            <ng-template pTemplate="header">
+                <tr>
+                    <th pSortableColumn="name">
+                        <div class="flex justify-content-between align-items-center">
+                            Name
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <p-columnFilter type="text" field="name" display="menu" class="ml-auto"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th pSortableColumn="weight">
+                        <div class="flex justify-content-between align-items-center">
+                            Weight
+                            <p-sortIcon field="name"></p-sortIcon>
+                            <p-columnFilter type="numeric" field="weight" display="menu" class="ml-auto"></p-columnFilter>
+                        </div>
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-category>
+                <tr class="p-selectable-row">
+                    <td>
+                        <span class="p-column-title">Name</span>
+                        {{category.name}}
+                    </td>
+                    <td>{{category.weight}}</td>
+                    <td>                   
+                        <div class="buttons">                        
+                            <button pButton pRipple type="button" class="p-button-outlined" icon="pi pi-pencil" (click)="this.selectEdit(category)"></button>                        
+                        </div>
+                    </td>
+                    <td>
+                        <div class="buttons">
+                            <button pButton pRipple type="button" class="p-button-outlined p-button-danger" icon="pi pi-trash" (click)="this.onDelete(category.id)"></button>
+                        </div>
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>        
+    </div>    
+
+    <p-toast></p-toast>
+    <p-confirmDialog [style]="{width: '50vw'}" rejectButtonStyleClass="p-button-outlined"></p-confirmDialog>
+
+</div>

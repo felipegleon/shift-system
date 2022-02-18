@@ -43,7 +43,7 @@ public class CategoryHandler {
 
     public Mono<ServerResponse> createCategory (ServerRequest serverRequest){
         Mono<Category> categoryMono = serverRequest.bodyToMono(Category.class);
-        return categoryMono.flatMap(category ->{
+        return categoryMono.flatMap(category -> {
             Errors errors = new BeanPropertyBindingResult(category, Category.class.getName());
             validator.validate(category, errors);
             if(errors.hasErrors()){

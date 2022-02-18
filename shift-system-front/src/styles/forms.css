@@ -1,0 +1,54 @@
+.container{
+    padding-top: 10px;
+    padding-bottom: 100px;
+}
+
+.title {
+    text-align: center;
+    margin: 25px;
+    color: #3582f6;
+    font-size: 2em;
+}
+
+.subtitle {
+    margin: 25px;
+    color: #3582f6;
+    font-size: 1.5em;
+}
+
+.input-field{
+    margin-bottom: 25px;
+}
+
+.p-float-label{
+    margin-bottom: 5px;
+}
+
+.p-inputtext{
+    width: 100%;
+}
+
+.static-message{
+    margin-bottom: 5px;
+}
+
+.button{
+    margin-top: 25px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+}
+
+.buttun-cancel {
+    float: right;
+    position: static;
+    margin-top: 25 px;
+    margin-right: 25 px;
+}
+
+.buttons{
+    text-align: center;
+}
+
+.p-toast{
+    z-index: 1001;
+}

@@ -24,6 +24,7 @@ export class CategoriesService {
   }
 
   createCategory(category: Category): Observable<Category>{
+    category.id = undefined;    
     return this.httpClient.post<Category>(this.apiUrl, category, { headers: this.headers });
   }
 
