@@ -20,17 +20,14 @@ public class Shifts {
     private String id;
     @NotEmpty
     private String categoryId;
-    @Min(1)
     private Long consecutive;
     @NotEmpty
     private String status;
-    @NotEmpty
     private Date createdAt;
-    @NotEmpty
     private Date attendedAt;
-    @NotEmpty
     private Date finishedAt;
     private String adviserId;
+    private int numberOfCalls;
 
 
 }

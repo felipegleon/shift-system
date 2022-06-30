@@ -1,6 +1,7 @@
 package com.shiftsystem.config;
 
 
+import com.shiftsystem.handlers.AdviserHandler;
 import com.shiftsystem.handlers.CategoryHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,5 +23,16 @@ public class RouterFunctionConfig {
                 .andRoute(POST("/api/categories"), categoryHandler::createCategory)
                 .andRoute(PUT("/api/categories/{id}"), categoryHandler::editCategory)
                 .andRoute(DELETE("/api/categories/{id}"), categoryHandler::deleteCategory);
+    }
+
+    @Bean
+    public RouterFunction<ServerResponse> routesAdvisers (AdviserHandler adviserHandler){
+
+        return RouterFunctions.route(
+                        GET("/api/advisers"), adviserHandler::getAllAdvisers)
+                .andRoute(GET("/api/advisers/{id}"), adviserHandler::getAdviserById)
+                .andRoute(POST("/api/advisers"), adviserHandler::createAdviser)
+                .andRoute(PUT("/api/advisers/{id}"), adviserHandler::editAdviser)
+                .andRoute(DELETE("/api/advisers/{id}"), adviserHandler::deleteAdviser);
     }
 }

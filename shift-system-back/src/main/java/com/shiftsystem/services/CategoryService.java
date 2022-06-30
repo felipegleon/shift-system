@@ -8,6 +8,8 @@ public interface CategoryService {
 
     Flux<Category> getAllCategories();
     Mono<Category> getCategoryById(String id);
-    Mono<Category> saveCategory(Category category);
+
+    Mono<?> createCategory(Mono<Category> categoryMono);
+    Mono<Category> editCategory(String id,  Mono<Category> categoryMono);
     Mono<Void> deleteCategory(String id);
 }

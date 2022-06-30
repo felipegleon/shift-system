@@ -24,4 +24,5 @@ public class Category {
     @Min(1)
     @NotNull
     private Integer weight;
+    private Long currentConsecutive;
 }

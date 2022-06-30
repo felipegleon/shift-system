@@ -8,8 +8,7 @@ public interface AdviserService {
 
     Flux<Adviser> getAllAdvisers();
     Mono<Adviser> getAdviserById(String id);
-    Mono<Adviser> createAdviser(Adviser adviser);
-    Mono<Adviser> editAdviser(String id, Adviser adviser);
-    Mono<Adviser> deleteAdviser(String id);
+    Mono<Adviser> saveAdviser(Adviser adviser);
+    Mono<Void> deleteAdviser(String id);
 
 }
